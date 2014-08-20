@@ -1,9 +1,14 @@
 source 'https://rubygems.org'
 ruby '2.0.0'
 
+#Yelp gem
+gem 'yelp', require: 'yelp'
+
 # PostgreSQL driver
 gem 'pg'
 
+#http party
+gem 'httparty'
 # Sinatra driver
 gem 'sinatra'
 gem 'sinatra-contrib'

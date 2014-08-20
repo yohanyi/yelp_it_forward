@@ -11,9 +11,10 @@ function initialize(lat,long){
 
   var mapOptions = {
     center: userLocation,
-    zoom: 12
+    zoom: 12,
+
   };
-  var map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions);
+  map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions);
 
   google.maps.event.addDomListener(findBtn, 'click', function() {
     placeMarker(userLocation,map)
@@ -23,7 +24,10 @@ function initialize(lat,long){
       map.setZoom(18);
     });
 };
+/////// end of initialize
 
+
+/// PLACE MARKER
 function placeMarker(location,map,markers) {
   var marker = new google.maps.Marker({
     position: location,
@@ -33,6 +37,4 @@ function placeMarker(location,map,markers) {
   });
 };
 
-
-google.maps.event.addDomListener(window, 'load', initialize)
 

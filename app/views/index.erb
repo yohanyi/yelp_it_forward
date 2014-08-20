@@ -1,4 +1,31 @@
+<!-- <FORM action="/yelp_search" method="get">
+    <P>
+    <LABEL for="firstname">City: </LABEL>
+              <INPUT type="text" name="city_input" value="SF ONLY FOR NOW"><BR>
+    <LABEL for="lastname">Find: </LABEL>
+              <INPUT type="text" name="find_input"><BR>
+    <INPUT type="submit" value="Send"> <INPUT type="reset">
+    </P>
+ </FORM> -->
 <div class="container">
   <button id="find-me">find me</button>
   <button id="zoom-in">zoom to me</button>
 </div>
+ <form id="calculate-route" name="calculate-route" action="#" method="get">
+      <label for="from">From:</label>
+      <input type="text" id="from" name="from" required="required" placeholder="An address" size="30" />
+      <a id="from-link" href="#">Get my position</a>
+      <br />
+ 
+      <label for="to">To:</label>
+      <input type="text" id="to" name="to" required="required" placeholder="Another address" size="30" />
+      <a id="to-link" href="#">Get my position</a>
+      <br />
+
+      <label for="yelp">Find:</label>
+      <input type="text" id="to" name="find_input" required="required" placeholder="bars, food, etc."/>
+<!--       <a id="to-link" href="#">Get my position</a> -->
+      <br />
+      <input type="submit" />
+      <input type="reset" />
+</form>
