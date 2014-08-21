@@ -4,8 +4,8 @@ require 'httparty'
 
 client = Yelp::Client.new({ consumer_key: "KQlW2qJjSqmX0ZR7nGKS7Q",
                           consumer_secret: 'Z9DxVzldLc8UHnJhqKnjOEbI1pg',
-                          token: "rVGC_6ENquuEMC9pK6-fo0kvTIPaEKU7",
-                          token_secret: "8d2Id_xOvBO-ze-IXjJtuiV4B7Q"
+                          token: "dib4YLCSfTEg4otosEG70d0cvtfPDXlW",
+                          token_secret: "yKzOs-hCbbN2PRixgBv9YCRLBFo"
                         })
   # Yelp.client.search('San Francisco', { term: 'food' })
 
@@ -13,13 +13,24 @@ client = Yelp::Client.new({ consumer_key: "KQlW2qJjSqmX0ZR7nGKS7Q",
 
 
 get '/' do 
+  p client
   erb :index
 end
 
 get '/yelp_search' do
-  city_input = params[:city_input]
+  # p params
   find_input = params[:find_input]
-  @yelp_data = client.search("#{city_input}", { term: "#{find_input}",limit: 3, sort: 1})
-  erb :yelp_data
+  start_address = params[:from]
+  dest_address = params[:to]
+  response = client.search("#{start_address}", { term: "#{find_input}",limit: 3, sort: 1})
+  response.to_json
+  # name = response.businesses[0].name
+  # p response.businesses[0].name
+
+  # p @data.display_address
+  # p @data.url
+  # p @data.phone
+  # p @data.snippet_text
+  # p @data.id
 end
 

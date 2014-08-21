@@ -1,4 +1,5 @@
 
+
 var calculateRoute = function(from, to){
   var directionsService = new google.maps.DirectionsService();
   var directionsRequest = {
@@ -24,8 +25,7 @@ var calculateRoute = function(from, to){
   );
 };
 
-var FindLoc = function(event) {
-  event.preventDefault();
+var FindLoc = function() {
   var addressId = this.id.substring(0, this.id.indexOf("-"));
 
   navigator.geolocation.getCurrentPosition(function(position) {
@@ -50,15 +50,57 @@ var FindLoc = function(event) {
 };
 
 
+
+var getYelp = function(event) {
+  console.log("here")
+  event.preventDefault();
+  $.ajax({
+    url: '/yelp_search',
+    type: 'GET',
+    dataType: 'json',
+    data: $("form").serialize(),
+  })
+  .done(function(result) {
+    console.log("success");
+    pushAdresses(result);
+    addYelpMarkers();
+    debugger
+
+
+  })
+  .fail(function() {
+    console.log("error");
+  })
+  .always(function() {
+    console.log("complete");
+  });
+  
+}
+
 var CalcRoute = function(){
   calculateRoute($("#from").val(), $("#to").val());
 }
 
-function initEvents = function(){
-  $("#calculate-route").on("click", CalcRoute);
-  $("#from-link, #to-link").on("click", FindLoc) {
+function pushAdresses(result){
+  for(i=0;i<result.businesses.length;i++){
+    var word = result.businesses[i].location.display_address;
+    var newAddress = word[0] + ' ' + word[1] + ', ' + word[2];
+    address.push(newAddress);
+  };
+};
+
+function addYelpMarkers() {
+  for(i=0;i<address.length;i++) {
+    codeAddress(address[i])
+  }
 }
 
-google.maps.event.addDomListener(window, 'load', initialize)  
+var initEvents = function(){
+  $("#calculate-route").on("click", CalcRoute);
+  $("#submit").on("click", getYelp)
+  $("#from-link, #to-link").on("click", FindLoc);
+  google.maps.event.addDomListener(window, 'load', initialize)  
+}
+
 initEvents();
       
