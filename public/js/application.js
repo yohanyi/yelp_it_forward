@@ -2,9 +2,10 @@
 navigator.geolocation.getCurrentPosition( function(position) {
   initialize(position.coords.latitude,position.coords.longitude)
 });
-var address = []
+var address = [];
 var geocoder;
 var map;
+var result = [];
 
 ////////////GOOGLE MAPS////////////////
 function initialize(lat,long){
@@ -18,44 +19,28 @@ function initialize(lat,long){
   };
   map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions);
   geocoder = new google.maps.Geocoder
-  // google.maps.event.addDomListener(findBtn, 'click', function() {
-  //   placeMarker(userLocation,map)
-  //   })
 
-  // google.maps.event.addDomListener(zoomBtn, 'click', function() {
-  //     map.setZoom(18);
-  //   });
 };
 /////// end of initialize
-
+var infowindow = new google.maps.InfoWindow({
+      maxWidth: 160
+    });
 
 /// PLACE MARKER
-function codeAddress(adrs) {
-  geocoder.geocode( { 'address': adrs}, function(results, status) {
-    if (status == google.maps.GeocoderStatus.OK) {
-      map.setCenter(results[0].geometry.location);
-      var marker = new google.maps.Marker({
-          map: map,
-          position: results[0].geometry.location
-      });
-    } else {
-      alert("Geocode was not successful for the following reason: " + status);
-    }
-  });
-}
-
-function geoCoder(adrs){
-  geocoder.geocode({address: adrs}, placeMarker)
-}
-
-// function placeMarker(adrs,map) {
-//   var marker = new google.maps.Marker({
-//     address: adrs,
-//     setMap: map,
-//     position: this.userLocation,
-//     animation: google.maps.Animation.DROP,
-//     // title: "Your Current Position"
+// function codeAddress(adrs) {
+//   geocoder.geocode( { 'address': adrs}, function(results, status) {
+//     if (status == google.maps.GeocoderStatus.OK) {
+//       map.setCenter(results[0].geometry.location);
+//       var marker = new google.maps.Marker({
+//           map: map,
+//           position: results[0].geometry.location
+//       });
+//     } else {
+//       alert("Geocode was not successful for the following reason: " + status);
+//     }
 //   });
-// };
+// }
+
+
 
 

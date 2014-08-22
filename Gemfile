@@ -3,7 +3,8 @@ ruby '2.0.0'
 
 #Yelp gem
 gem 'yelp', require: 'yelp'
-
+#geocoder
+gem 'geocoder'
 # PostgreSQL driver
 gem 'pg'
 

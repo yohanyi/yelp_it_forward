@@ -62,10 +62,8 @@ var getYelp = function(event) {
   })
   .done(function(result) {
     console.log("success");
-    pushAdresses(result);
-    addYelpMarkers();
+    MakeMyMapAwesome(result);
     debugger
-
 
   })
   .fail(function() {
@@ -76,7 +74,11 @@ var getYelp = function(event) {
   });
   
 }
+function MakeMyMapAwesome(result) {
+  pushAdresses(result);
+  addYelpMarkers(result);
 
+}
 var CalcRoute = function(){
   calculateRoute($("#from").val(), $("#to").val());
 }
@@ -89,9 +91,32 @@ function pushAdresses(result){
   };
 };
 
-function addYelpMarkers() {
+
+function MarkerNinfo(adrs, result) {
+  var info_template = '<div id="content">'+ 
+     '<h1> ' +  result.businesses[i].name + '</h1>' +
+     // '<p>' + result.business[i]
+      '</div>';
+  geocoder.geocode( { 'address': adrs}, function(adrs, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      map.setCenter(adrs[0].geometry.location);
+      var marker = new google.maps.Marker({
+          map: map,
+          position: adrs[0].geometry.location,
+          animation: google.maps.Animation.DROP
+      });
+    }
+    google.maps.event.addListener(marker, 'click', function() {
+      infowindow.setContent(info_template);
+      infowindow.open(map,marker);
+    });
+  });
+}
+
+
+function addYelpMarkers(result) {
   for(i=0;i<address.length;i++) {
-    codeAddress(address[i])
+    MarkerNinfo(address[i],result)
   }
 }
 
